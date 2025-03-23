@@ -17,9 +17,15 @@ try {
     tweetProps.community_id = communityId;
   }
 
-  const { data: createdTweet } = await userClient.v2.tweet(message, tweetProps);
-  console.log("Tweet #", createdTweet.id, ": ", createdTweet.text);
-  core.setOutput("post-id", createdTweet.id);
+  userClient.v2
+    .tweet(message, tweetProps)
+    .then((res) => {
+      console.log("Tweet #", res.data.id, ": ", res.data.text);
+      core.setOutput("post-id", res.data.id);
+    })
+    .catch((err) => {
+      core.setFailed(err.message);
+    });
 } catch (error) {
   core.setFailed(error.message);
 }
