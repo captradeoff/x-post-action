@@ -42,3 +42,17 @@ jobs:
 ## License
 
 [MIT](./license)
+
+## Development
+
+### Testing
+
+This project uses Jest for testing. To run the tests:
+
+1. Clone the repository
+2. Install dependencies with `npm install`
+3. Run the tests with `npm test`
+
+The tests use mocks for the Twitter API and GitHub Actions core module to verify functionality without making actual API calls.
+
+Coverage report is generated automatically when running the tests. You can view the HTML coverage report in the `coverage` directory.
