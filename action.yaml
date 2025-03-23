@@ -14,4 +14,4 @@ outputs:
     description: 'The ID of the post'
 runs:
   using: 'node22'
-  main: 'index.js'
+  main: 'dist/index.js'
