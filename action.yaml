@@ -1,6 +1,18 @@
 name: 'X Post Action'
 description: 'Post a message to X'
 inputs:
+  appKey:
+    description: 'The app key'
+    required: true
+  appSecret:
+    description: 'The app secret'
+    required: true
+  accessToken:
+    description: 'The access token'
+    required: true
+  accessSecret:
+    description: 'The access secret'
+    required: true
   message:
     description: 'The message to post'
     required: true
