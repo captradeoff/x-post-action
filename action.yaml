@@ -1,5 +1,7 @@
 name: 'X Post Action'
 description: 'Post a message to X'
+icon: message-circle
+color: black
 inputs:
   appKey:
     description: 'The app key'
