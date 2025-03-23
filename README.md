@@ -1,4 +1,4 @@
-# X Post Action
+# X Post Action ![GitHub Repo stars](https://img.shields.io/github/stars/captradeoff/x-post-action)
 
 A GitHub Action that posts messages to X (formerly Twitter) communities.
 
