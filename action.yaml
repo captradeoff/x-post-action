@@ -1,0 +1,17 @@
+name: 'X Post Action'
+description: 'Post a message to X'
+inputs:
+  message:
+    description: 'The message to post'
+    required: true
+    default: 'Hello, world!'
+  community-id:
+    description: 'The ID of the community to post to'
+    required: false
+    default: null
+outputs:
+  post-id:
+    description: 'The ID of the post'
+runs:
+  using: 'node22'
+  main: 'index.js'
