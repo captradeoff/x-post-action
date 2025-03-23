@@ -13,5 +13,5 @@ outputs:
   post-id:
     description: 'The ID of the post'
 runs:
-  using: 'node22'
+  using: 'node20'
   main: 'dist/index.js'
