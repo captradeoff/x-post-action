@@ -1,6 +1,55 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
+/***/ 6136:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+const core = __nccwpck_require__(7484);
+const { TwitterApi } = __nccwpck_require__(4455);
+
+// Export the function for testing
+async function postTweet() {
+  try {
+    const userClient = new TwitterApi({
+      appKey: core.getInput("appKey"),
+      appSecret: core.getInput("appSecret"),
+      accessToken: core.getInput("accessToken"),
+      accessSecret: core.getInput("accessSecret"),
+    });
+
+    const message = core.getInput("message");
+    const communityId = core.getInput("community-id");
+    const tweetProps = {};
+
+    if (communityId) {
+      tweetProps.community_id = communityId;
+    }
+
+    const result = await userClient.v2.tweet(message, tweetProps);
+    console.log("Tweet #", result.data.id, ": ", result.data.text);
+    core.setOutput("post-id", result.data.id);
+    return result;
+  } catch (error) {
+    core.setFailed(error.message);
+    throw error;
+  }
+}
+
+// Only run the action if this file is being run directly
+if (require.main === require.cache[eval('__filename')]) {
+  postTweet().catch(error => {
+    // Error already handled in postTweet
+  });
+}
+
+// Export for testing
+module.exports = {
+  postTweet
+};
+
+
+/***/ }),
+
 /***/ 4914:
 /***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
 
@@ -35130,39 +35179,12 @@ module.exports = parseParams
 /******/ 	if (typeof __nccwpck_require__ !== 'undefined') __nccwpck_require__.ab = __dirname + "/";
 /******/ 	
 /************************************************************************/
-var __webpack_exports__ = {};
-const core = __nccwpck_require__(7484);
-const { TwitterApi } = __nccwpck_require__(4455);
-
-try {
-  const userClient = new TwitterApi({
-    appKey: core.getInput("appKey"),
-    appSecret: core.getInput("appSecret"),
-    accessToken: core.getInput("accessToken"),
-    accessSecret: core.getInput("accessSecret"),
-  });
-
-  const message = core.getInput("message");
-  const communityId = core.getInput("community-id");
-  const tweetProps = {};
-
-  if (communityId) {
-    tweetProps.community_id = communityId;
-  }
-
-  userClient.v2
-    .tweet(message, tweetProps)
-    .then((res) => {
-      console.log("Tweet #", res.data.id, ": ", res.data.text);
-      core.setOutput("post-id", res.data.id);
-    })
-    .catch((err) => {
-      core.setFailed(err.message);
-    });
-} catch (error) {
-  core.setFailed(error.message);
-}
-
-module.exports = __webpack_exports__;
+/******/ 	
+/******/ 	// startup
+/******/ 	// Load entry module and return exports
+/******/ 	// This entry module is referenced by other modules so it can't be inlined
+/******/ 	var __webpack_exports__ = __nccwpck_require__(6136);
+/******/ 	module.exports = __webpack_exports__;
+/******/ 	
 /******/ })()
 ;
