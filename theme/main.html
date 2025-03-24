@@ -1,0 +1,72 @@
+{% extends "base.html" %} {% block extrahead %}
+<meta name="twitter:site" content="@captradeoff" />
+<meta name="twitter:creator" content="@captradeoff" />
+<!-- RSS Feed -->
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="rss feed of created content"
+  href="{{ config.site_url }}feed_rss_created.xml"
+/>
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  title="rss feed of updated content"
+  href="{{ config.site_url }}feed_rss_updated.xml"
+/>
+<!-- llms.txt -->
+<link
+  rel="alternate"
+  type="text/plain"
+  title="llms.txt"
+  href="{{ config.site_url }}llms.txt"
+/>
+{% endblock %} {% block footer %}
+<div style="width: 100%; text-align: center; margin: 15px auto;">
+    <a href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href), 'TwitterShare', 'width=550,height=680,menubar=no,toolbar=no'); return false;" class="hover-item" style="color: white; margin: 0 15px; display: inline-block;">
+        share on x
+    </a>
+    <a href="#" onclick="window.open('https://www.linkedin.com/shareArticle?url=' + encodeURIComponent(window.location.href), 'LinkedinShare', 'width=550,height=730,menubar=no,toolbar=no'); return false;" class="hover-item" style="color: white; margin: 0 15px; display: inline-block;">
+        share on linkedin
+    </a>
+</div>
+<table class="table table-striped table-hover">
+  <tbody>
+    <tr>
+      <td style="text-align: center">
+        <a href="https://x.com/captradeoff"
+          >follow on x</a
+        >
+      </td>
+      <td style="text-align: center">
+        <a href="https://github.com/captradeoff/x-post-action/issues"
+          >open an issue</a
+        >
+      </td>
+      <td style="text-align: center">
+        <a href="https://github.com/captradeoff/x-post-action"
+          >star this repo</a
+        >
+      </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">
+        <a href="https://github.com/captradeoff/x-post-action/fork"
+          >fork this repo</a
+        >
+      </td>
+      <td style="text-align: center">
+        <a href="https://github.com/captradeoff"
+          >follow on github</a
+        >
+      </td>
+      <td style="text-align: center">
+        <a href="https://github.com/marketplace/actions/x-post-action"
+          >view on marketplace</a
+        >
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<p style="text-align: center;"><a href="/license/">{{ config.copyright }}</a></p>

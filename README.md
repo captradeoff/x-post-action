@@ -19,6 +19,7 @@
 - [setting up x api credentials](#setting-up-x-api-credentials)
 - [development](#development)
 - [contributing](#contributing)
+- [documentation](#documentation)
 - [support this project](#-support-this-project)
 - [license](#license)
 
@@ -200,6 +201,21 @@ contributions are welcome! here's how you can help:
 6. **open a pull request**: go to your fork on github and click the 'new pull request' button
 
 please make sure your code passes all tests and follows the project's coding style.
+
+## 📚 documentation
+
+comprehensive documentation for this project is available on our dedicated documentation site at [https://captradeoff.github.io/x-post-action/](https://captradeoff.github.io/x-post-action/). the site is built using the [d-sys-wiki documentation template](https://github.com/captradeoff/d-sys-wiki-documentation-template).
+
+the documentation includes:
+- detailed usage instructions
+- api reference
+- configuration options
+- examples and tutorials
+- troubleshooting guides
+
+the documentation source files are located in the `docs/` directory of this repository. you can contribute to the documentation by submitting pull requests to update these files.
+
+visit the documentation site to learn more about how to effectively use this action in your workflows.
 
 ## ⭐ support this project
 

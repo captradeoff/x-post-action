@@ -1,0 +1,71 @@
+site_name: x post action
+site_url: https://captradeoff.github.io/x-post-action/
+copyright: "MIT License"
+site_author: captradeoff
+repo_url: https://github.com/captradeoff/x-post-action
+edit_uri: edit/master/docs/
+docs_dir: docs
+
+nav:
+  - home: "index.md"
+  - documentation:
+      - description: "description.md" 
+      - features: "features.md"
+      - inputs: "inputs.md"
+      - outputs: "outputs.md"
+      - example usage: "example-usage.md"
+      - how it works: "how-it-works.md"
+      - setting up x api credentials: "credentials.md"
+  - development:
+      - getting started: "development/getting-started.md"
+      - testing: "development/testing.md"
+      - contributing: "development/contributing.md"
+  - rss: "feed_rss_updated.xml"
+  - llms: "llms.txt"
+
+plugins:
+  - ultralytics:
+      verbose: True
+      enabled: True
+      default_image: "https://x-post-action.github.io/img/captradeoff.jpg"
+      default_author: "@captradeoff"
+      add_desc: True
+      add_image: True
+      add_keywords: True
+      add_share_buttons: True
+      add_json_ld: True
+  - rss
+  - llmstxt:
+      files:
+        - output: llms.txt
+          inputs:
+            - "**.md"
+  - search
+  - git-revision-date
+  - spellcheck:
+
+theme:
+  name: terminal
+  custom_dir: theme
+  palette: gruvbox_dark
+  features:
+    - footer.prev_next
+    - navigation.side.indexes
+    - navigation.top.cursor_animation.hide
+    - revision.date
+    - revision.history
+
+markdown_extensions:
+  - md_in_html
+  - toc:
+      permalink: "⁂"
+      permalink_title: anchor link to this section for reference
+
+extra_css:
+  - style.css
+
+extra:
+  social:
+    image: docs/img/captradeoff.png
+    description: "github action that creates a post on x.com"
+    title: "x post action"
