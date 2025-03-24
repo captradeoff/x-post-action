@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="ie=edge" http-equiv="X-UA-Compatible"/>
+<meta content="mkdocs-1.6.1, mkdocs-terminal-4.7.0" name="generator"/>
+<meta content="captradeoff" name="author"/>
+<link href="https://captradeoff.github.io/x-post-action/example-usage/" rel="canonical"/><link href="../img/android-chrome-192x192.png" rel="icon" sizes="192x192" type="image/png">
+<link href="../img/android-chrome-512x512.png" rel="icon" sizes="512x512" type="image/png"/>
+<link href="../img/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"/>
+<link href="../img/favicon.ico" rel="shortcut icon" sizes="48x48" type="image/png"/>
+<link href="../img/favicon-16x16.png" rel="icon" sizes="16x16" type="image/png"/>
+<link href="../img/favicon-32x32.png" rel="icon" sizes="32x32" type="image/png"/>
+<title>example usage - x post action</title>
+<link href="../css/fontawesome/css/fontawesome.min.css" rel="stylesheet"/>
+<link href="../css/fontawesome/css/solid.min.css" rel="stylesheet"/>
+<link href="../css/normalize.css" rel="stylesheet"/>
+<link href="../css/terminal.css" rel="stylesheet"/>
+<link href="../css/theme.css" rel="stylesheet"/>
+<link href="../css/theme.tile_grid.css" rel="stylesheet"/>
+<link href="../css/theme.footer.css" rel="stylesheet"/>
+<!-- gruvbox_dark color palette -->
+<link href="../css/palettes/gruvbox_dark.css" rel="stylesheet"/>
+<!-- page layout -->
+<style>
+/* initially set page layout to a one column grid */
+.terminal-mkdocs-main-grid {
+    display: grid;
+    grid-column-gap: 1.4em;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+}
+
+/*  
+*   when side navigation is not hidden, use a two column grid.  
+*   if the screen is too narrow, fall back to the initial one column grid layout.
+*   in this case the main content will be placed under the navigation panel. 
+*/
+@media only screen and (min-width: 70em) {
+    .terminal-mkdocs-main-grid {
+        grid-template-columns: 4fr 9fr;
+    }
+}</style>
+<!-- cursor_animation override -->
+<style>
+  #mkdocs-terminal-site-name.terminal-prompt::after {
+      display: none;
+  }
+</style>
+<link href="../style.css" rel="stylesheet"/>
+<meta content="@captradeoff" name="twitter:site">
+<meta content="@captradeoff" name="twitter:creator">
+<!-- RSS Feed -->
+<link href="https://captradeoff.github.io/x-post-action/feed_rss_created.xml" rel="alternate" title="rss feed of created content" type="application/rss+xml">
+<link href="https://captradeoff.github.io/x-post-action/feed_rss_updated.xml" rel="alternate" title="rss feed of updated content" type="application/rss+xml">
+<!-- llms.txt -->
+<link href="https://captradeoff.github.io/x-post-action/llms.txt" rel="alternate" title="llms.txt" type="text/plain">
+<!-- search css support -->
+<link href="../css/search/bootstrap-modal.css" rel="stylesheet"/>
+<!-- search scripts -->
+<script>
+    var base_url = "..",
+    shortcuts = "{}";
+</script>
+<script defer="" src="../js/jquery/jquery-1.10.1.min.js"></script>
+<script defer="" src="../js/bootstrap/bootstrap.min.js"></script>
+<script defer="" src="../js/mkdocs/base.js"></script>
+<script src="../search/main.js"></script>
+</link></link></link></meta></meta></link><meta content="example usage" name="title"/><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"/><meta content="website" property="og:type"/><meta content="https://captradeoff.github.io/x-post-action/example-usage" property="og:url"/><meta content="example usage" property="og:title"/><meta content="below are examples of how to use the x post action in your github workflows." property="og:description"/><meta content="https://captradeoff.github.io/x-post-action/img/captradeoff.jpg" property="og:image"/><meta content="summary_large_image" property="twitter:card"/><meta content="https://captradeoff.github.io/x-post-action/example-usage" property="twitter:url"/><meta content="example usage" property="twitter:title"/><meta content="below are examples of how to use the x post action in your github workflows." property="twitter:description"/><meta content="https://captradeoff.github.io/x-post-action/img/captradeoff.jpg" property="twitter:image"/><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "example usage", "image": ["https://captradeoff.github.io/x-post-action/img/captradeoff.jpg"], "datePublished": "2025-03-23 21:47:29 -0700", "dateModified": "2025-03-23 21:47:29 -0700", "author": [{"@type": "Organization", "name": "Ultralytics", "url": "https://ultralytics.com/"}], "abstract": "below are examples of how to use the x post action in your github workflows."}</script></head>
+<body class="terminal"><div class="container">
+<div class="terminal-nav">
+<header class="terminal-logo">
+<div class="logo terminal-prompt" id="mkdocs-terminal-site-name"><a class="no-style" href="https://captradeoff.github.io/x-post-action/">x post action</a></div>
+</header>
+<nav class="terminal-menu">
+<ul typeof="BreadcrumbList" vocab="https://schema.org/">
+<li property="itemListElement" typeof="ListItem">
+<a class="menu-item" href=".." property="item" typeof="WebPage">
+<span property="name">home</span>
+</a>
+<meta content="0" property="position"/>
+</li>
+<li property="itemListElement" typeof="ListItem">
+<a class="menu-item" href="../feed_rss_updated.xml" property="item" typeof="WebPage">
+<span property="name">rss</span>
+</a>
+<meta content="1" property="position"/>
+</li>
+<li property="itemListElement" typeof="ListItem">
+<a class="menu-item" href="../llms.txt" property="item" typeof="WebPage">
+<span property="name">llms</span>
+</a>
+<meta content="2" property="position"/>
+</li>
+<li property="itemListElement" typeof="ListItem">
+<a class="menu-item" data-target="#mkdocs_search_modal" data-toggle="modal" href="#" property="item" typeof="SearchAction">
+<i aria-hidden="true" class="fa fa-search"></i> <span property="name">Search</span>
+</a>
+<meta content="3" property="position"/>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+<div class="container">
+<div class="terminal-mkdocs-main-grid"><aside id="terminal-mkdocs-side-panel"><nav>
+<ul class="terminal-mkdocs-side-nav-items">
+<li class="terminal-mkdocs-side-nav-li">
+<a class="terminal-mkdocs-side-nav-item" href="..">home</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li">
+<span class="terminal-mkdocs-side-nav-item--active terminal-mkdocs-side-nav-section-no-index">documentation</span>
+<ul class="terminal-mkdocs-side-nav-li-ul">
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../description/">description</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../features/">features</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../inputs/">inputs</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../outputs/">outputs</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<span class="terminal-mkdocs-side-nav-item--active">example usage</span>
+</li>
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../how-it-works/">how it works</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../credentials/">setting up x api credentials</a>
+</li>
+</ul>
+</li>
+<li class="terminal-mkdocs-side-nav-li">
+<span class="terminal-mkdocs-side-nav-item terminal-mkdocs-side-nav-section-no-index">development</span>
+<ul class="terminal-mkdocs-side-nav-li-ul">
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../development/getting-started/">getting started</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../development/testing/">testing</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li-ul-li">
+<a class="terminal-mkdocs-side-nav-item" href="../development/contributing/">contributing</a>
+</li>
+</ul>
+</li>
+<li class="terminal-mkdocs-side-nav-li">
+<a class="terminal-mkdocs-side-nav-item" href="../feed_rss_updated.xml">rss</a>
+</li>
+<li class="terminal-mkdocs-side-nav-li">
+<a class="terminal-mkdocs-side-nav-item" href="../llms.txt">llms</a>
+</li>
+</ul>
+</nav><hr/>
+<nav>
+<ul>
+<li><a href="#example-usage">🚀 example usage</a></li>
+<li><a href="#basic-example">basic example</a></li><li><a href="#announce-new-releases">announce new releases</a></li><li><a href="#post-on-schedule">post on schedule</a></li><li><a href="#post-on-successful-build">post on successful build</a></li>
+</ul>
+</nav>
+</aside>
+<main id="terminal-mkdocs-main-content">
+<section id="mkdocs-terminal-content">
+<h1 id="example-usage">🚀 example usage<a class="headerlink" href="#example-usage" title="anchor link to this section for reference">⁂</a></h1>
+<p>below are examples of how to use the x post action in your github workflows.</p>
+<h2 id="basic-example">basic example<a class="headerlink" href="#basic-example" title="anchor link to this section for reference">⁂</a></h2>
+<p>the simplest way to use the action is to post a static message:</p>
+<pre><code class="language-yaml">name: post to x
+
+on:
+  workflow_dispatch:  # manually triggered
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post to x
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'hello from github actions!'
+</code></pre>
+<h2 id="announce-new-releases">announce new releases<a class="headerlink" href="#announce-new-releases" title="anchor link to this section for reference">⁂</a></h2>
+<p>automatically post when a new release is published:</p>
+<pre><code class="language-yaml">name: announce release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post to x
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'new release ${{ github.event.release.tag_name }} is now available! check it out at ${{ github.event.release.html_url }}'
+          community-id: '123456789'  # optional: post to a specific community
+</code></pre>
+<h2 id="post-on-schedule">post on schedule<a class="headerlink" href="#post-on-schedule" title="anchor link to this section for reference">⁂</a></h2>
+<p>create scheduled posts using cron:</p>
+<pre><code class="language-yaml">name: weekly update
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'  # every monday at noon UTC
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: get stats
+        id: stats
+        run: |
+          echo "::set-output name=stars::$(curl -s https://api.github.com/repos/${{ github.repository }} | jq .stargazers_count)"
+
+      - name: post to x
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'weekly update: our project now has ${{ steps.stats.outputs.stars }} stars! thank you for your support.'
+</code></pre>
+<h2 id="post-on-successful-build">post on successful build<a class="headerlink" href="#post-on-successful-build" title="anchor link to this section for reference">⁂</a></h2>
+<p>post when continuous integration succeeds:</p>
+<pre><code class="language-yaml">name: build and post
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: build project
+        run: npm ci &amp;&amp; npm run build
+
+      - name: test project
+        run: npm test
+
+      - name: post to x
+        if: success()
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'build successful for commit ${{ github.sha }} on branch ${{ github.ref_name }}. all tests passed! ✅'
+</code></pre>
+</section>
+<section id="mkdocs-terminal-after-content">
+</section>
+<section id="mkdocs-terminal-revision">
+<br/>
+<aside>
+<p>
+<small>
+<i>Page last updated 2025-03-23. See revision history on <a href="https://github.com/captradeoff/x-post-action/commits/master/docs/example-usage.md">GitHub</a>.</i>
+</small>
+</p>
+</aside>
+</section>
+</main>
+</div>
+<hr/>
+<div style="width: 100%; text-align: center; margin: 15px auto;">
+<a class="hover-item" href="#" onclick="window.open('https://twitter.com/intent/tweet?url=' + encodeURIComponent(window.location.href), 'TwitterShare', 'width=550,height=680,menubar=no,toolbar=no'); return false;" style="color: white; margin: 0 15px; display: inline-block;">
+        share on x
+    </a>
+<a class="hover-item" href="#" onclick="window.open('https://www.linkedin.com/shareArticle?url=' + encodeURIComponent(window.location.href), 'LinkedinShare', 'width=550,height=730,menubar=no,toolbar=no'); return false;" style="color: white; margin: 0 15px; display: inline-block;">
+        share on linkedin
+    </a>
+</div>
+<table class="table table-striped table-hover">
+<tbody>
+<tr>
+<td style="text-align: center">
+<a href="https://x.com/captradeoff">follow on x</a>
+</td>
+<td style="text-align: center">
+<a href="https://github.com/captradeoff/x-post-action/issues">open an issue</a>
+</td>
+<td style="text-align: center">
+<a href="https://github.com/captradeoff/x-post-action">star this repo</a>
+</td>
+</tr>
+<tr>
+<td style="text-align: center">
+<a href="https://github.com/captradeoff/x-post-action/fork">fork this repo</a>
+</td>
+<td style="text-align: center">
+<a href="https://github.com/captradeoff">follow on github</a>
+</td>
+<td style="text-align: center">
+<a href="https://github.com/marketplace/actions/x-post-action">view on marketplace</a>
+</td>
+</tr>
+</tbody>
+</table>
+<p style="text-align: center;"><a href="/license/">MIT License</a></p>
+</div>
+<div aria-labelledby="searchModalLabel" aria-modal="true" class="modal" id="mkdocs_search_modal" role="alertdialog" tabindex="-1">
+<div class="modal-dialog modal-lg" role="search">
+<div class="modal-content">
+<div class="modal-header">
+<h5 class="modal-title" id="searchModalLabel">Search</h5>
+<button class="close btn btn-default btn-ghost" data-dismiss="modal" type="button"><span aria-hidden="true">x</span><span class="sr-only">Close</span></button>
+</div>
+<div class="modal-body">
+<p id="searchInputLabel">Type to start searching</p>
+<form>
+<div class="form-group">
+<input aria-labelledby="searchInputLabel" class="form-control" id="mkdocs-search-query" placeholder="" title="Please enter search terms here" type="search"/>
+</div>
+</form>
+<div data-no-results-text="No document matches found" id="mkdocs-search-results"></div>
+</div>
+<div class="modal-footer">
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>

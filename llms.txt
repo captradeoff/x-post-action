@@ -1,0 +1,576 @@
+# x post action
+
+github action that creates a post on x.com.
+
+> **⭐ star this repo** if you find it useful!
+
+this action allows you to automatically post messages to x from your github workflow.
+
+it can be used to announce new releases, share updates, or integrate your github workflow with x communities.
+
+## quick links
+
+- [description](description/)
+- [features](features/)
+- [inputs](inputs/)
+- [outputs](outputs/)
+- [example usage](example-usage/)
+- [how it works](how-it-works/)
+- [setting up x api credentials](credentials/)
+- [development](development/getting-started/)
+- [contributing](development/contributing/)
+
+## example usage
+
+```
+name: post to x
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post to x
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'new release ${{ github.event.release.tag_name }} is now available!'
+          community-id: '123456789'
+
+```
+
+# 🔑 setting up x api credentials
+
+to use the x post action, you'll need to set up a developer account and create an app on x.
+
+## step 1: create a developer account
+
+1. go to the [x developer portal](https://developer.twitter.com/en/portal/dashboard)
+1. sign in with your x account
+1. apply for a developer account if you don't already have one
+
+## step 2: create a new app
+
+1. in the developer portal, navigate to "projects & apps"
+1. click "create app"
+1. fill in the required information about your app
+1. set the app permissions to "read and write"
+
+## step 3: generate access tokens
+
+1. from your app's dashboard, navigate to the "keys and tokens" tab
+1. generate consumer keys (app key and app secret)
+1. generate access token and access token secret
+
+## step 4: add credentials to github secrets
+
+1. in your github repository, go to settings > secrets and variables > actions
+1. click "new repository secret"
+1. add the following secrets:
+1. `X_APP_KEY`: your app key
+1. `X_APP_SECRET`: your app secret
+1. `X_ACCESS_TOKEN`: your access token
+1. `X_ACCESS_SECRET`: your access token secret
+
+## step 5: use secrets in your workflow
+
+reference the secrets in your workflow file:
+
+```
+- name: post to x
+  uses: captradeoff/x-post-action@v1
+  with:
+    appKey: ${{ secrets.X_APP_KEY }}
+    appSecret: ${{ secrets.X_APP_SECRET }}
+    accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+    accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+    message: 'hello from github actions!'
+
+```
+
+## troubleshooting credentials
+
+if you encounter authentication issues:
+
+1. verify that all four credentials are correctly stored in github secrets
+1. ensure your app has "read and write" permissions
+1. check that your access tokens haven't expired
+1. make sure your developer account is in good standing
+1. verify that you haven't exceeded rate limits
+
+# 📝 description
+
+this action allows you to automatically post messages to x from your github workflow.
+
+it can be used to announce new releases, share updates, or integrate your github workflow with x communities.
+
+## what it does
+
+the x post action simplifies the process of posting to x (formerly twitter) directly from your github workflows. using the twitter api v2, this action enables automated social media updates whenever significant events occur in your repository.
+
+## use cases
+
+- announce new software releases with version information
+- share project updates, milestones and achievements
+- notify your audience about bug fixes and important patches
+- build an engaged community around your open source project
+- integrate your development pipeline with social media outreach
+
+# 🚀 example usage
+
+below are examples of how to use the x post action in your github workflows.
+
+## basic example
+
+the simplest way to use the action is to post a static message:
+
+```
+name: post to x
+
+on:
+  workflow_dispatch:  # manually triggered
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post to x
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'hello from github actions!'
+
+```
+
+## announce new releases
+
+automatically post when a new release is published:
+
+```
+name: announce release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post to x
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'new release ${{ github.event.release.tag_name }} is now available! check it out at ${{ github.event.release.html_url }}'
+          community-id: '123456789'  # optional: post to a specific community
+
+```
+
+## post on schedule
+
+create scheduled posts using cron:
+
+```
+name: weekly update
+
+on:
+  schedule:
+    - cron: '0 12 * * 1'  # every monday at noon UTC
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: get stats
+        id: stats
+        run: |
+          echo "::set-output name=stars::$(curl -s https://api.github.com/repos/${{ github.repository }} | jq .stargazers_count)"
+
+      - name: post to x
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'weekly update: our project now has ${{ steps.stats.outputs.stars }} stars! thank you for your support.'
+
+```
+
+## post on successful build
+
+post when continuous integration succeeds:
+
+```
+name: build and post
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout code
+        uses: actions/checkout@v2
+
+      - name: build project
+        run: npm ci && npm run build
+
+      - name: test project
+        run: npm test
+
+      - name: post to x
+        if: success()
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'build successful for commit ${{ github.sha }} on branch ${{ github.ref_name }}. all tests passed! ✅'
+
+```
+
+# ✨ features
+
+## key features
+
+- **automated posting**: publish updates to x directly from your github workflows
+- **community integration**: post to specific x communities to reach targeted audiences
+- **release announcements**: automatically announce new releases with version information
+- **customizable messages**: fully customize your post content with repository information and event data
+- **secure credential handling**: uses github secrets for secure api credential management
+- **easy configuration**: simple yaml-based setup with minimal configuration required
+
+## technical highlights
+
+- built with node.js for reliable performance
+- uses the official twitter api v2 client
+- comprehensive test coverage with jest
+- integration tests for real-world scenario validation
+- MIT licensed for maximum flexibility
+
+# ⚙️ how it works
+
+## architecture
+
+the x post action uses the twitter api v2 (via the `twitter-api-v2` npm package) to post messages to x.
+
+when your github workflow runs, the action:
+
+1. authenticates with the x api using your credentials
+1. creates a new post with your specified message
+1. optionally associates the post with a community
+1. returns the post id for further processing
+
+## supported features
+
+- posting text messages to your x account
+- posting to a specific x community (optional)
+- returning the post id for further processing
+
+## technical details
+
+the action is built with node.js and uses the following core components:
+
+- [@actions/core](https://github.com/actions/toolkit/tree/main/packages/core): core functions for github actions
+- [@actions/github](https://github.com/actions/toolkit/tree/main/packages/github): github actions toolkit
+- [twitter-api-v2](https://github.com/PLhery/node-twitter-api-v2): twitter api v2 client for node.js
+
+the action is compiled using @vercel/ncc to create a single javascript file with all dependencies included, making it fast and reliable to use in your workflows.
+
+## error handling
+
+the action implements comprehensive error handling to:
+
+- validate all required inputs
+- provide clear error messages if the api request fails
+- report detailed diagnostic information for troubleshooting
+- gracefully handle rate limiting and other api restrictions
+
+# 📥 inputs
+
+the x post action accepts the following inputs:
+
+| input | description | required | default | | --- | --- | --- | --- | | `appKey` | the x api app key | yes | - | | `appSecret` | the x api app secret | yes | - | | `accessToken` | the x api access token | yes | - | | `accessSecret` | the x api access secret | yes | - | | `message` | the message to post to x | yes | 'Hello, world!' | | `community-id` | the id of the community to post to | no | null |
+
+## input details
+
+### api credentials
+
+the four credential inputs (`appKey`, `appSecret`, `accessToken`, `accessSecret`) are required to authenticate with the x api. for security, these should be stored as secrets in your github repository.
+
+learn more about [setting up x api credentials](../credentials/).
+
+### message
+
+the `message` input defines the content of your x post. this can be customized with dynamic content from your github workflow, such as:
+
+- release version numbers
+- commit information
+- repository data
+- custom messages
+
+### community-id
+
+the optional `community-id` parameter allows you to post directly to a specific x community. if not provided, the post will appear on your main timeline only.
+
+# Creative Commons Legal Code
+
+## CC0 1.0 Universal
+
+```
+CREATIVE COMMONS CORPORATION IS NOT A LAW FIRM AND DOES NOT PROVIDE
+LEGAL SERVICES. DISTRIBUTION OF THIS DOCUMENT DOES NOT CREATE AN
+ATTORNEY-CLIENT RELATIONSHIP. CREATIVE COMMONS PROVIDES THIS
+INFORMATION ON AN "AS-IS" BASIS. CREATIVE COMMONS MAKES NO WARRANTIES
+REGARDING THE USE OF THIS DOCUMENT OR THE INFORMATION OR WORKS
+PROVIDED HEREUNDER, AND DISCLAIMS LIABILITY FOR DAMAGES RESULTING FROM
+THE USE OF THIS DOCUMENT OR THE INFORMATION OR WORKS PROVIDED
+HEREUNDER.
+
+```
+
+## Statement of Purpose
+
+The laws of most jurisdictions throughout the world automatically confer exclusive Copyright and Related Rights (defined below) upon the creator and subsequent owner(s) (each and all, an "owner") of an original work of authorship and/or a database (each, a "Work").
+
+Certain owners wish to permanently relinquish those rights to a Work for the purpose of contributing to a commons of creative, cultural and scientific works ("Commons") that the public can reliably and without fear of later claims of infringement build upon, modify, incorporate in other works, reuse and redistribute as freely as possible in any form whatsoever and for any purposes, including without limitation commercial purposes. These owners may contribute to the Commons to promote the ideal of a free culture and the further production of creative, cultural and scientific works, or to gain reputation or greater distribution for their Work in part through the use and efforts of others.
+
+For these and/or other purposes and motivations, and without any expectation of additional consideration or compensation, the person associating CC0 with a Work (the "Affirmer"), to the extent that he or she is an owner of Copyright and Related Rights in the Work, voluntarily elects to apply CC0 to the Work and publicly distribute the Work under its terms, with knowledge of his or her Copyright and Related Rights in the Work and the meaning and intended legal effect of CC0 on those rights.
+
+1. Copyright and Related Rights. A Work made available under CC0 may be protected by copyright and related or neighboring rights ("Copyright and Related Rights"). Copyright and Related Rights include, but are not limited to, the following:
+
+i. the right to reproduce, adapt, distribute, perform, display, communicate, and translate a Work; ii. moral rights retained by the original author(s) and/or performer(s); iii. publicity and privacy rights pertaining to a person's image or likeness depicted in a Work; iv. rights protecting against unfair competition in regards to a Work, subject to the limitations in paragraph 4(a), below; v. rights protecting the extraction, dissemination, use and reuse of data in a Work; vi. database rights (such as those arising under Directive 96/9/EC of the European Parliament and of the Council of 11 March 1996 on the legal protection of databases, and under any national implementation thereof, including any amended or successor version of such directive); and vii. other similar, equivalent or corresponding rights throughout the world based on applicable law or treaty, and any national implementations thereof.
+
+1. Waiver. To the greatest extent permitted by, but not in contravention of, applicable law, Affirmer hereby overtly, fully, permanently, irrevocably and unconditionally waives, abandons, and surrenders all of Affirmer's Copyright and Related Rights and associated claims and causes of action, whether now known or unknown (including existing as well as future claims and causes of action), in the Work (i) in all territories worldwide, (ii) for the maximum duration provided by applicable law or treaty (including future time extensions), (iii) in any current or future medium and for any number of copies, and (iv) for any purpose whatsoever, including without limitation commercial, advertising or promotional purposes (the "Waiver"). Affirmer makes the Waiver for the benefit of each member of the public at large and to the detriment of Affirmer's heirs and successors, fully intending that such Waiver shall not be subject to revocation, rescission, cancellation, termination, or any other legal or equitable action to disrupt the quiet enjoyment of the Work by the public as contemplated by Affirmer's express Statement of Purpose.
+1. Public License Fallback. Should any part of the Waiver for any reason be judged legally invalid or ineffective under applicable law, then the Waiver shall be preserved to the maximum extent permitted taking into account Affirmer's express Statement of Purpose. In addition, to the extent the Waiver is so judged Affirmer hereby grants to each affected person a royalty-free, non transferable, non sublicensable, non exclusive, irrevocable and unconditional license to exercise Affirmer's Copyright and Related Rights in the Work (i) in all territories worldwide, (ii) for the maximum duration provided by applicable law or treaty (including future time extensions), (iii) in any current or future medium and for any number of copies, and (iv) for any purpose whatsoever, including without limitation commercial, advertising or promotional purposes (the "License"). The License shall be deemed effective as of the date CC0 was applied by Affirmer to the Work. Should any part of the License for any reason be judged legally invalid or ineffective under applicable law, such partial invalidity or ineffectiveness shall not invalidate the remainder of the License, and in such case Affirmer hereby affirms that he or she will not (i) exercise any of his or her remaining Copyright and Related Rights in the Work or (ii) assert any associated claims and causes of action with respect to the Work, in either case contrary to Affirmer's express Statement of Purpose.
+1. Limitations and Disclaimers.
+
+a. No trademark or patent rights held by Affirmer are waived, abandoned, surrendered, licensed or otherwise affected by this document. b. Affirmer offers the Work as-is and makes no representations or warranties of any kind concerning the Work, express, implied, statutory or otherwise, including without limitation warranties of title, merchantability, fitness for a particular purpose, non infringement, or the absence of latent or other defects, accuracy, or the present or absence of errors, whether or not discoverable, all to the greatest extent permissible under applicable law. c. Affirmer disclaims responsibility for clearing rights of other persons that may apply to the Work or any use thereof, including without limitation any person's Copyright and Related Rights in the Work. Further, Affirmer disclaims responsibility for obtaining any necessary consents, permissions or other rights required for any use of the Work. d. Affirmer understands and acknowledges that Creative Commons is not a party to this document and has no duty or obligation with respect to this CC0 or use of the Work.
+
+# 📤 outputs
+
+the x post action provides the following output:
+
+| output | description | | --- | --- | | `post-id` | the id of the post |
+
+## using the post-id output
+
+the `post-id` output can be used in subsequent steps of your workflow to reference the created post.
+
+### example: accessing the post-id
+
+```
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post to x
+        id: x_post
+        uses: captradeoff/x-post-action@v1
+        with:
+          appKey: ${{ secrets.X_APP_KEY }}
+          appSecret: ${{ secrets.X_APP_SECRET }}
+          accessToken: ${{ secrets.X_ACCESS_TOKEN }}
+          accessSecret: ${{ secrets.X_ACCESS_SECRET }}
+          message: 'new release!'
+
+      - name: use post id
+        run: |
+          echo "post created with id: ${{ steps.x_post.outputs.post-id }}"
+          # use the post id for other operations
+
+```
+
+## potential uses
+
+- link to the post from other platforms
+- track engagement metrics for the post
+- add the post to twitter lists
+- reference the post in subsequent api calls
+
+# 🤝 contributing
+
+contributions are welcome! this page explains how you can help improve the x post action.
+
+## ways to contribute
+
+there are many ways to contribute to this project:
+
+- report bugs and suggest features through issues
+- fix bugs and implement new features
+- improve documentation
+- write tests
+- share the project with others
+
+## contribution workflow
+
+1. **fork the repository**: click the fork button at the top of the [repository page](https://github.com/captradeoff/x-post-action)
+1. **create a feature branch**: `git checkout -b feature/your-feature-name`
+1. **make your changes**: implement your feature or fix
+1. **write or update tests**: ensure your code is well-tested
+1. **ensure tests pass**: run `npm test` to make sure everything works
+1. **build the action**: run `npm run build` to update the dist folder
+1. **commit your changes**: `git commit -m 'add some feature'`
+1. **push to the branch**: `git push origin feature/your-feature-name`
+1. **open a pull request**: go to your fork on github and click the 'new pull request' button
+
+## pull request guidelines
+
+when submitting a pull request:
+
+- fill in the required template
+- add a clear title and description
+- reference any relevant issues
+- include screenshots and animated gifs if appropriate
+- ensure all tests are passing
+- make sure you've built the action with `npm run build`
+
+## code style
+
+please make sure your code follows the project's coding style:
+
+- use camelCase for variable and function names
+- include jsdoc comments for functions
+- keep functions small and focused
+- use meaningful variable names
+- add appropriate error handling
+
+## ⭐ supporting the project
+
+if you find this project useful, please consider:
+
+- ⭐ starring the repository on github
+- 🔄 forking the repository to contribute
+- 📢 sharing the project with others who might find it helpful
+- 🐛 reporting bugs or suggesting features through issues
+- 💻 submitting pull requests to improve the code or documentation
+
+your support helps maintain and improve this project!
+
+# 💻 development
+
+this project uses node.js and the twitter api v2 client.
+
+## prerequisites
+
+before you begin, ensure you have:
+
+- node.js (v20 recommended)
+- npm
+- git
+- x developer account and api credentials
+
+## setting up local development
+
+1. clone the repository: `bash git clone https://github.com/captradeoff/x-post-action.git cd x-post-action`
+1. install dependencies: `bash npm install`
+1. for testing with actual api calls, create a `.env` file: `bash cp .env.sample .env`
+1. edit the `.env` file to add your x api credentials
+
+## project structure
+
+- `index.js`: main entry point
+- `action.yaml`: github action definition
+- `index.test.js`: unit tests
+- `integration.test.js`: api integration tests
+- `integration-action.test.js`: action function tests
+- `dist/`: compiled action code
+
+## building the action
+
+the action uses @vercel/ncc to compile the node.js code and dependencies into a single file:
+
+```
+npm run build
+
+```
+
+this will create a `dist/index.js` file that is referenced in `action.yaml`.
+
+## development workflow
+
+1. make changes to the code
+1. update or add tests to cover your changes
+1. run tests to ensure everything works: `bash npm test`
+1. build the action: `bash npm run build`
+1. commit and push your changes
+1. create a pull request
+
+# testing
+
+this project uses jest for testing with both unit tests and integration tests.
+
+## unit tests
+
+the unit tests mock the twitter api and github actions core module to verify functionality without making actual api calls.
+
+to run the unit tests:
+
+```
+npm test
+
+```
+
+this will run all test files matching `*.test.js` in the project root.
+
+coverage report is generated automatically when running the tests. you can view the html coverage report in the `coverage` directory.
+
+## integration tests
+
+integration tests make actual calls to the x api to verify real-world functionality.
+
+### setup for integration tests
+
+1. copy the `.env.sample` file to `.env` and fill in with your x api credentials: `bash cp .env.sample .env`
+1. edit the `.env` file and replace placeholders with your actual api keys and tokens: `X_APP_KEY=your_actual_app_key X_APP_SECRET=your_actual_app_secret X_ACCESS_TOKEN=your_actual_access_token X_ACCESS_SECRET=your_actual_access_secret`
+
+### running integration tests
+
+there are several integration test scripts available:
+
+```
+# run direct api integration test
+npm run test:integration
+
+# run action function integration test
+npm run test:integration-action
+
+# run all integration tests
+npm run test:integration-all
+
+```
+
+### integration test details
+
+the integration tests include:
+
+- **direct api test**: tests the x api directly using credentials from .env
+- **action function test**: tests the postTweet function exported from index.js
+
+both tests will:
+
+- post actual tweets to your x account
+- include extensive logging for debugging
+- skip tests automatically if environment variables aren't set
+- add a timestamp to make each test message unique
+
+**note:** be careful with integration tests as they make real api calls and will post actual tweets to your account.
