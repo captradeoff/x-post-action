@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://<INSERT_YOUR_URL>/sitemap.xml
+Sitemap: https://captradeoff.github.io/x-post-action/sitemap.xml
