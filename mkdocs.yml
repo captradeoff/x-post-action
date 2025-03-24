@@ -27,7 +27,7 @@ plugins:
   - ultralytics:
       verbose: True
       enabled: True
-      default_image: "https://x-post-action.github.io/img/captradeoff.jpg"
+      default_image: "https://captradeoff.github.io/x-post-action/img/captradeoff.jpg"
       default_author: "@captradeoff"
       add_desc: True
       add_image: True
