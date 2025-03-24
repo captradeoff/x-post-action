@@ -1,16 +1,43 @@
-# x post action ![github repo stars](https://img.shields.io/github/stars/captradeoff/x-post-action)
+# x post action - post from github action to [x.com](x.com)
+
 [![node.js ci](https://github.com/captradeoff/x-post-action/actions/workflows/node.js.yml/badge.svg)](https://github.com/captradeoff/x-post-action/actions/workflows/node.js.yml)
 ![github license](https://img.shields.io/github/license/captradeoff/x-post-action)
+[![github stars](https://img.shields.io/github/stars/captradeoff/x-post-action?style=social)](https://github.com/captradeoff/x-post-action/stargazers)
+[![github forks](https://img.shields.io/github/forks/captradeoff/x-post-action?style=social)](https://github.com/captradeoff/x-post-action/network/members)
+[![twitter follow](https://img.shields.io/twitter/follow/captradeoff?style=social)](https://twitter.com/captradeoff)
 
-github action that creates a post on x.
+> github action that creates a post on x. **[⭐ star this repo](#-support-this-project)** if you find it useful!
 
-## description
+## 📋 table of contents
+
+- [description](#description)
+- [features](#features)
+- [inputs](#inputs)
+- [outputs](#outputs)
+- [example usage](#example-usage)
+- [how it works](#how-it-works)
+- [setting up x api credentials](#setting-up-x-api-credentials)
+- [development](#development)
+- [contributing](#contributing)
+- [support this project](#-support-this-project)
+- [license](#license)
+
+## 📝 description
 
 this action allows you to automatically post messages to x from your github workflow.
 
 it can be used to announce new releases, share updates, or integrate your github workflow with x communities.
 
-## inputs
+## ✨ features
+
+- **automated posting**: publish updates to x directly from your github workflows
+- **community integration**: post to specific x communities to reach targeted audiences
+- **release announcements**: automatically announce new releases with version information
+- **customizable messages**: fully customize your post content with repository information and event data
+- **secure credential handling**: uses github secrets for secure api credential management
+- **easy configuration**: simple yaml-based setup with minimal configuration required
+
+## 📥 inputs
 
 | input          | description                         | required | default       |
 |----------------|-------------------------------------|----------|---------------|
@@ -21,13 +48,13 @@ it can be used to announce new releases, share updates, or integrate your github
 | `message`      | the message to post to x            | yes      | 'Hello, world!' |
 | `community-id` | the id of the community to post to  | no       | null          |
 
-## outputs
+## 📤 outputs
 
 | output    | description         |
 |-----------|---------------------|
 | `post-id` | the id of the post  |
 
-## example usage
+## 🚀 example usage
 
 ```yaml
 name: Post to X
@@ -51,7 +78,7 @@ jobs:
           community-id: '123456789'
 ```
 
-## how it works
+## ⚙️ how it works
 
 this action uses the twitter api v2 (via the `twitter-api-v2` npm package) to post messages to x. it supports:
 
@@ -59,7 +86,7 @@ this action uses the twitter api v2 (via the `twitter-api-v2` npm package) to po
 - posting to a specific x community (optional)
 - returns the post id for further processing
 
-## setting up x api credentials
+## 🔑 setting up x api credentials
 
 to use this action, you'll need to create an x developer account and set up an app:
 
@@ -71,11 +98,7 @@ to use this action, you'll need to create an x developer account and set up an a
 
 these values should be stored as secrets in your github repository and passed to the action as inputs.
 
-## license
-
-[mit](./license)
-
-## development
+## 💻 development
 
 this project uses node.js and the twitter api v2 client.
 
@@ -159,12 +182,37 @@ both tests will:
 
 **note:** be careful with integration tests as they make real api calls and will post actual tweets to your account.
 
-## dependencies
+## 📦 dependencies
 
 - [@actions/core](https://github.com/actions/toolkit/tree/main/packages/core): core functions for github actions
 - [@actions/github](https://github.com/actions/toolkit/tree/main/packages/github): github actions toolkit
 - [twitter-api-v2](https://github.com/PLhery/node-twitter-api-v2): twitter api v2 client for node.js
 
-## contributing
+## 🤝 contributing
 
-contributions are welcome! please feel free to submit a pull request.
+contributions are welcome! here's how you can help:
+
+1. **fork the repository**: click the fork button at the top of this page
+2. **create a feature branch**: `git checkout -b feature/your-feature-name`
+3. **make your changes**: implement your feature or fix
+4. **commit your changes**: `git commit -m 'add some feature'`
+5. **push to the branch**: `git push origin feature/your-feature-name`
+6. **open a pull request**: go to your fork on github and click the 'new pull request' button
+
+please make sure your code passes all tests and follows the project's coding style.
+
+## ⭐ support this project
+
+if you find this project useful, please consider:
+
+- ⭐ starring the repository on github
+- 🔄 forking the repository to contribute
+- 📢 sharing the project with others who might find it helpful
+- 🐛 reporting bugs or suggesting features through issues
+- 💻 submitting pull requests to improve the code or documentation
+
+your support helps maintain and improve this project!
+
+## 📄 license
+
+[mit](./license)
