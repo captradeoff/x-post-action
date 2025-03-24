@@ -1,29 +1,33 @@
-# X Post Action ![GitHub Repo stars](https://img.shields.io/github/stars/captradeoff/x-post-action)
+# x post action ![github repo stars](https://img.shields.io/github/stars/captradeoff/x-post-action)
+[![node.js ci](https://github.com/captradeoff/x-post-action/actions/workflows/node.js.yml/badge.svg)](https://github.com/captradeoff/x-post-action/actions/workflows/node.js.yml)
+![github license](https://img.shields.io/github/license/captradeoff/x-post-action)
 
-A GitHub Action that posts messages to X (formerly Twitter) communities.
+github action that creates a post on x.
 
-## Description
+## description
 
-This action allows you to automatically post messages to X from your GitHub workflow. It can be used to announce new releases, share updates, or integrate your GitHub workflow with X communities.
+this action allows you to automatically post messages to x from your github workflow.
 
-## Inputs
+it can be used to announce new releases, share updates, or integrate your github workflow with x communities.
 
-| Input          | Description                         | Required | Default       |
+## inputs
+
+| input          | description                         | required | default       |
 |----------------|-------------------------------------|----------|---------------|
-| `appKey`       | The X API app key                   | Yes      | -             |
-| `appSecret`    | The X API app secret                | Yes      | -             |
-| `accessToken`  | The X API access token              | Yes      | -             |
-| `accessSecret` | The X API access secret             | Yes      | -             |
-| `message`      | The message to post to X            | Yes      | 'Hello, world!' |
-| `community-id` | The ID of the community to post to  | No       | null          |
+| `appKey`       | the x api app key                   | yes      | -             |
+| `appSecret`    | the x api app secret                | yes      | -             |
+| `accessToken`  | the x api access token              | yes      | -             |
+| `accessSecret` | the x api access secret             | yes      | -             |
+| `message`      | the message to post to x            | yes      | 'Hello, world!' |
+| `community-id` | the id of the community to post to  | no       | null          |
 
-## Outputs
+## outputs
 
-| Output    | Description         |
+| output    | description         |
 |-----------|---------------------|
-| `post-id` | The ID of the post  |
+| `post-id` | the id of the post  |
 
-## Example Usage
+## example usage
 
 ```yaml
 name: Post to X
@@ -47,40 +51,40 @@ jobs:
           community-id: '123456789'
 ```
 
-## How It Works
+## how it works
 
-This action uses the Twitter API v2 (via the `twitter-api-v2` npm package) to post messages to X. It supports:
+this action uses the twitter api v2 (via the `twitter-api-v2` npm package) to post messages to x. it supports:
 
-- Posting text messages to your X account
-- Posting to a specific X community (optional)
-- Returns the post ID for further processing
+- posting text messages to your x account
+- posting to a specific x community (optional)
+- returns the post id for further processing
 
-## Setting Up X API Credentials
+## setting up x api credentials
 
-To use this action, you'll need to create an X Developer account and set up an app:
+to use this action, you'll need to create an x developer account and set up an app:
 
-1. Visit the [X Developer Portal](https://developer.twitter.com/en/portal/dashboard)
-2. Create a new app or use an existing one
-3. Generate the following credentials:
-   - App Key and App Secret
-   - Access Token and Access Secret
+1. visit the [x developer portal](https://developer.twitter.com/en/portal/dashboard)
+2. create a new app or use an existing one
+3. generate the following credentials:
+   - app key and app secret
+   - access token and access secret
 
-These values should be stored as secrets in your GitHub repository and passed to the action as inputs.
+these values should be stored as secrets in your github repository and passed to the action as inputs.
 
-## License
+## license
 
-[MIT](./license)
+[mit](./license)
 
-## Development
+## development
 
-This project uses Node.js and the Twitter API v2 client.
+this project uses node.js and the twitter api v2 client.
 
-### Prerequisites
+### prerequisites
 
-- Node.js (v20 recommended)
-- X Developer account and API credentials
+- node.js (v20 recommended)
+- x developer account and api credentials
 
-### Installation
+### installation
 
 ```bash
 # Clone the repository
@@ -91,38 +95,38 @@ cd x-post-action
 npm install
 ```
 
-### Building
+### building
 
-The action uses @vercel/ncc to compile the Node.js code and dependencies into a single file:
+the action uses @vercel/ncc to compile the node.js code and dependencies into a single file:
 
 ```bash
 npm run build
 ```
 
-This will create a `dist/index.js` file that is referenced in `action.yaml`.
+this will create a `dist/index.js` file that is referenced in `action.yaml`.
 
-### Testing
+### testing
 
-This project uses Jest for testing. To run the tests:
+this project uses jest for testing. to run the tests:
 
-1. Clone the repository
-2. Install dependencies with `npm install`
-3. Run the tests with `npm test`
+1. clone the repository
+2. install dependencies with `npm install`
+3. run the tests with `npm test`
 
-The tests use mocks for the Twitter API and GitHub Actions core module to verify functionality without making actual API calls.
+the tests use mocks for the twitter api and github actions core module to verify functionality without making actual api calls.
 
-Coverage report is generated automatically when running the tests. You can view the HTML coverage report in the `coverage` directory.
+coverage report is generated automatically when running the tests. you can view the html coverage report in the `coverage` directory.
 
-### Integration Testing
+### integration testing
 
-In addition to unit tests with mocks, there are also integration tests that make actual calls to the X API:
+in addition to unit tests with mocks, there are also integration tests that make actual calls to the x api:
 
-1. Copy the `.env.sample` file to `.env` and fill in with your X API credentials:
+1. copy the `.env.sample` file to `.env` and fill in with your x api credentials:
    ```bash
    cp .env.sample .env
    ```
 
-2. Edit the `.env` file and replace placeholders with your actual API keys and tokens:
+2. edit the `.env` file and replace placeholders with your actual api keys and tokens:
    ```
    X_APP_KEY=your_actual_app_key
    X_APP_SECRET=your_actual_app_secret
@@ -130,7 +134,7 @@ In addition to unit tests with mocks, there are also integration tests that make
    X_ACCESS_SECRET=your_actual_access_secret
    ```
 
-3. Run the integration tests:
+3. run the integration tests:
    ```bash
    # Run direct API integration test
    npm run test:integration
@@ -142,25 +146,25 @@ In addition to unit tests with mocks, there are also integration tests that make
    npm run test:integration-all
    ```
 
-The integration tests include:
+the integration tests include:
 
-- **Direct API Test**: Tests the X API directly using credentials from .env
-- **Action Function Test**: Tests the postTweet function exported from index.js
+- **direct api test**: tests the x api directly using credentials from .env
+- **action function test**: tests the postTweet function exported from index.js
 
-Both tests will:
-- Post actual tweets to your X account
-- Include extensive logging for debugging
-- Skip tests automatically if environment variables aren't set
-- Add a timestamp to make each test message unique
+both tests will:
+- post actual tweets to your x account
+- include extensive logging for debugging
+- skip tests automatically if environment variables aren't set
+- add a timestamp to make each test message unique
 
-**Note:** Be careful with integration tests as they make real API calls and will post actual tweets to your account.
+**note:** be careful with integration tests as they make real api calls and will post actual tweets to your account.
 
-## Dependencies
+## dependencies
 
-- [@actions/core](https://github.com/actions/toolkit/tree/main/packages/core): Core functions for GitHub Actions
-- [@actions/github](https://github.com/actions/toolkit/tree/main/packages/github): GitHub Actions Toolkit
-- [twitter-api-v2](https://github.com/PLhery/node-twitter-api-v2): Twitter API v2 client for Node.js
+- [@actions/core](https://github.com/actions/toolkit/tree/main/packages/core): core functions for github actions
+- [@actions/github](https://github.com/actions/toolkit/tree/main/packages/github): github actions toolkit
+- [twitter-api-v2](https://github.com/PLhery/node-twitter-api-v2): twitter api v2 client for node.js
 
-## Contributing
+## contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+contributions are welcome! please feel free to submit a pull request.
